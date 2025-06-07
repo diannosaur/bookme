@@ -57,36 +57,36 @@ function App() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      {Object.entries(availableTimes).map(([date, slots]) => (
-        <fieldset key={date} style={{ marginBottom: '1rem' }}>
-          <legend>{date}</legend>
-          {slots.map(({ time, status, id }) => {
-            // Disable slot if status is not 'available'
-            const disabled = status !== 'available'
-
-            return (
-              <label
-                key={time}
-                style={{ display: 'block', opacity: disabled ? 0.5 : 1 }}
-              >
-                <input
-                  type="radio"
-                  name="timeslot"
-                  value={id}
-                  disabled={disabled}
-                  checked={selected === id}
-                  onChange={() => setSelected(id)}
-                />
-                {time} ({status})
-              </label>
-            )
-          })}
-        </fieldset>
-      ))}
-
-      <button type="submit">Submit</button>
-    </form>
+    <div class="container mt-5">
+      <form onSubmit={handleSubmit}>
+        {Object.entries(availableTimes).map(([date, slots]) => (
+          <div key={date} style={{ marginBottom: '1rem' }}>
+            <h2>{date}</h2>
+            {slots.map(({ time, status, id }) => {
+              // Disable slot if status is not 'available'
+              const disabled = status !== 'available'
+              return (
+                <label
+                  key={time}
+                  style={{ display: 'block', opacity: disabled ? 0.5 : 1 }}
+                >
+                  <input
+                    type="radio"
+                    name="timeslot"
+                    value={id}
+                    disabled={disabled}
+                    checked={selected === id}
+                    onChange={() => setSelected(id)}
+                  />
+                  {time} ({status})
+                </label>
+              )
+            })}
+          </div>
+        ))}
+        <button class="btn btn-primary" type="submit">Book selected time</button>
+      </form>
+    </div>
   )
 }
 

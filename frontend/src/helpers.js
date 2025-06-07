@@ -2,10 +2,7 @@ export default function formatTimeslots(timeslots) {
   const grouped = {};
 
   timeslots.forEach(slot => {
-    // Format date as 'YYYY-M-D' (remove leading zeroes)
-    const dateKey = new Date(slot.viewing_date).toISOString().split('T')[0];
-    const [year, month, day] = dateKey.split('-');
-    const key = `${year}-${parseInt(month)}-${parseInt(day)}`;
+    const key = new Date(slot.viewing_date).toLocaleDateString('en-NZ', { weekday: 'long',   year: 'numeric', month: 'long', day: 'numeric'})
 
     // Format time range like '9:00 AM - 12:00 PM'
     const start = new Date(slot.start_time);

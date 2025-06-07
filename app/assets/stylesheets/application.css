@@ -1,0 +1,12 @@
+.form-field {
+  display: flex;
+  padding: 10px 0;
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.red {
+  border: 5px solid red;
+}

@@ -10,27 +10,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :viewing_date %><br>
-    <%= form.date_select :viewing_date %>
+  <div class="form-field">
+    <%= form.label :viewing_date, class: "label" %><br>
+    <%= form.date_select :viewing_date, {}, { class: "" } %>
   </div>
 
-  <div>
-    <%= form.label :start_time %><br>
-    <%= form.time_select :start_time, minute_step: 15 %>
+  <div class="form-field">
+    <%= form.label :start_time, class: "label" %><br>
+    <%= form.time_select :start_time, { minute_step: 15 }, { class: "" } %>
   </div>
 
-  <div>
-    <%= form.label :end_time %><br>
-    <%= form.time_select :end_time, minute_step: 15 %>
+  <div class="form-field">
+    <%= form.label :end_time, class: "label" %><br>
+    <%= form.time_select :end_time, { minute_step: 15 }, { class: "" } %>
   </div>
 
-    <div>
-    <%= form.label :max_guests %><br>
-    <%= form.number_field :max_guests %>
+  <div class="form-field">
+    <%= form.label :max_guests, class: "label" %><br>
+    <%= form.number_field :max_guests, class: "" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-field">
+    <%= form.submit "Create time slot", class: "btn btn-primary" %>
   </div>
 <% end %>
