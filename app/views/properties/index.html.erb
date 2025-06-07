@@ -1,0 +1,14 @@
+<h1>Properties</h1>
+<ul>
+  <% @properties.each do |property| %>
+    <li>
+      <%= button_to property_path(property), method: :get, class: 'btn btn-link' do %>
+        <strong><%= property.name %></strong><br>
+        <%= property.address %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= button_to 'Add property', new_property_path, method: :get, class: 'btn btn-primary' %>
+

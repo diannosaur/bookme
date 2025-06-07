@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_06_235132) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_07_093220) do
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "timeslots", force: :cascade do |t|
     t.date "viewing_date"
     t.datetime "start_time"
@@ -18,7 +25,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_06_235132) do
     t.integer "number_of_guests", default: 0
     t.integer "max_guests", default: 5
     t.string "status", default: "available"
+    t.integer "property_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_timeslots_on_property_id"
   end
+
+  add_foreign_key "timeslots", "properties"
 end

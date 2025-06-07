@@ -7,6 +7,7 @@ class CreateTimeSlots < ActiveRecord::Migration[7.2]
       t.integer :number_of_guests, default: 0
       t.integer :max_guests, default: 5
       t.string :status, default: 'available'
+      t.references :property, null: false, foreign_key: true
 
       t.timestamps
     end

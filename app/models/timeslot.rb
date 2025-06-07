@@ -1,5 +1,8 @@
 class Timeslot < ApplicationRecord
   # before_save :set_status
+  belongs_to :property
+
+  validates :viewing_date, :start_time, :end_time, presence: true
 
   def time
     "#{start_time} - #{end_time}"

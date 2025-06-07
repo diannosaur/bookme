@@ -13,8 +13,14 @@ Rails.application.routes.draw do
   root "timeslots#index"
 
   resources :timeslots
+  resources :properties
+
+  resources :properties do
+    resources :timeslots, only: [:index, :new, :create]
+  end
 
   namespace :api do
     resources :timeslots
+    resources :properties
   end
 end
