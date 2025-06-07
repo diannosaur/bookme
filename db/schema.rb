@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2025_06_06_235132) do
-  create_table "time_slots", force: :cascade do |t|
+  create_table "timeslots", force: :cascade do |t|
+    t.date "viewing_date"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "total_booked"
+    t.integer "number_of_guests", default: 0
+    t.integer "max_guests", default: 5
+    t.string "status", default: "available"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
