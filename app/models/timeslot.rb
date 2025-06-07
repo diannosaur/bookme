@@ -1,5 +1,5 @@
 class Timeslot < ApplicationRecord
-  before_save :set_status
+  # before_save :set_status
 
   def time
     "#{start_time} - #{end_time}"

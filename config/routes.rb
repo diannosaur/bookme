@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   resources :timeslots
 
   namespace :api do
-    resources :timeslots, only: [:index]
+    resources :timeslots
   end
 end

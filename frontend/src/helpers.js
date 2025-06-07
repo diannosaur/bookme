@@ -10,17 +10,18 @@ export default function formatTimeslots(timeslots) {
     // Format time range like '9:00 AM - 12:00 PM'
     const start = new Date(slot.start_time);
     const end = new Date(slot.end_time);
+    console.log(slot.end_time)
 
     const formatTime = date =>
       date.toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
-        hour12: true,
+        hour12: false,
       });
 
     const timeRange = `${formatTime(start)} - ${formatTime(end)}`;
 
-    const entry = { time: timeRange, status: slot.status };
+    const entry = { id: slot.id, time: timeRange, status: slot.status, startTime: formatTime(start) };
 
     if (!grouped[key]) {
       grouped[key] = [];
