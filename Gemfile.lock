@@ -106,7 +106,6 @@ GEM
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
-    error_highlight (0.7.0)
     erubi (1.13.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -310,7 +309,6 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
-  error_highlight (>= 0.4.0)
   jbuilder
   jsbundling-rails
   puma (>= 5.0)
