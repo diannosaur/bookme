@@ -1,7 +1,6 @@
 // PropertyTimeslots.jsx
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import formatTimeSlots from './helpers'
 
 function formatDate(dateStr) {
   const date = new Date(dateStr)

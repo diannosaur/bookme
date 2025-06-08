@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { toUTCISOString } from './helpers'
 
 function TimeslotForm({ errors = [] }) {
   const { id } = useParams()
@@ -7,7 +8,7 @@ function TimeslotForm({ errors = [] }) {
 
   const [propertyName, setPropertyName] = useState(null)
   const [propertyAddress, setPropertyAddress] = useState(null)
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState([])
 
   const fetchPropertyInfo = useCallback(() => {
     fetch(`http://localhost:3000/api/properties/${id}`)
@@ -50,12 +51,12 @@ function TimeslotForm({ errors = [] }) {
         }
       })
       .then(() => {
-        setFormErrors([]);
+        setFormErrors([])
         navigate(`/properties/${id}`)
       })
       .catch((err) => {
         console.log(err)
-        setFormErrors(err || ["Failed to create timeslot."]);
+        setFormErrors(err || ['Failed to create timeslot.'])
       })
   }
 
@@ -67,12 +68,29 @@ function TimeslotForm({ errors = [] }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    createTimeSlot(form)
+    const utcForm = {
+      ...form,
+      start_time: toUTCISOString(form.viewing_date, form.start_time),
+      end_time: toUTCISOString(form.viewing_date, form.end_time),
+    }
+    createTimeSlot(utcForm)
   }
+
+  // Set default value for viewing_date to today's date in YYYY-MM-DD format
+  useEffect(() => {
+    if (!form.viewing_date) {
+      const today = new Date()
+      const yyyy = today.getFullYear()
+      const mm = String(today.getMonth() + 1).padStart(2, '0')
+      const dd = String(today.getDate()).padStart(2, '0')
+      const formatted = `${yyyy}-${mm}-${dd}`
+      setForm((prev) => ({ ...prev, viewing_date: formatted }))
+    }
+  }, [form.viewing_date])
 
   return (
     <div>
-      <h1>Create new time slot for {propertyName}</h1>
+      <h1>Create new viewing time for {propertyName}</h1>
       <p>{propertyAddress}</p>
       <form onSubmit={handleSubmit}>
         <input type="hidden" name="property_id" value={id} />
@@ -143,7 +161,7 @@ function TimeslotForm({ errors = [] }) {
 
         <div className="form-field">
           <button type="submit" className="btn btn-primary">
-            Create time slot
+            Create viewing time
           </button>
         </div>
       </form>

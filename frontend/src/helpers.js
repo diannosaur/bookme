@@ -1,3 +1,11 @@
+import { DateTime } from 'luxon'
+
+export const toUTCISOString = (date, time) => {
+  if (!date || !time) return false
+  const dt = DateTime.fromISO(`${date}T${time}`, { zone: 'local' })
+  return dt.toUTC().toISO()
+}
+
 export default function formatTimeslots(timeslots) {
   const grouped = {};
 
