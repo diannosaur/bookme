@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a basic app that allows property managers to schedule available viewing times for properties, and for prospective tenants to book those times.
 
-Things you may want to cover:
+It has a ruby-on-rails/sqlite3 backend, with a react frontend.
 
-* Ruby version
+Requirements:
+ruby v3.1.2
+rails 7.2.2.1
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Setup
+1. Clone this repo
+2. `cd bookme`
+3. run `bundle install`
+4. run `bin/rails server`
+5. In a new tab, `cd bookme/frontend`
+6. run `npm install`
+7. run `npm start`
+8. This should open your default browser to localhost:3001
