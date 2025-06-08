@@ -7,6 +7,26 @@ module Api
       render json: @timeslots
     end
 
+    def new
+      create
+    end
+
+    def create
+      @property = Property.find(params[:property_id]) if params[:property_id].present?
+      if @property
+        @timeslot = @property.timeslots.build(timeslot_params)
+        if @timeslot.save
+          redirect_to api_property_path(@property), notice: 'Timeslot was successfully created.'
+        else
+          render :new, status: :unprocessable_entity
+        end
+      else
+        @timeslot = Timeslot.new(timeslot_params)
+        @timeslot.errors.add(:base, "Property not found")
+        render :new, status: :unprocessable_entity
+      end
+    end
+
     def update
       timeslot = Timeslot.find(params[:id])
 
@@ -20,7 +40,7 @@ module Api
     private
 
     def timeslot_params
-      params.require(:timeslot).permit(:status)
+      params.require(:timeslot).permit(:status, :viewing_date, :start_time, :end_time, :max_guests, :property_id)
     end
   end
 end
