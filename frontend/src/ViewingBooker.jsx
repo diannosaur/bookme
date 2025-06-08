@@ -65,39 +65,50 @@ function PropertyViewings() {
   }
 
   return (
-    <div class="container mt-5">
-      <h1>Viewing times for {propertyName}</h1>
+    <div className="">
+      <h1>Book a viewing time for {propertyName}</h1>
       <p>Address: {propertyAddress}</p>
-      <form onSubmit={handleSubmit}>
-        {Object.entries(availableTimes).map(([date, slots]) => (
-          <div key={date} style={{ marginBottom: '1rem' }}>
-            <h2>{date}</h2>
-            {slots.map(({ time, status, id }) => {
-              // Disable slot if status is not 'available'
-              const disabled = status !== 'available'
-              return (
-                <label
-                  key={time}
-                  style={{ display: 'block', opacity: disabled ? 0.5 : 1 }}
-                >
-                  <input
-                    type="radio"
-                    name="timeslot"
-                    value={id}
-                    disabled={disabled}
-                    checked={selected === id}
-                    onChange={() => setSelected(id)}
-                  />
-                  {time} ({status})
-                </label>
-              )
-            })}
-          </div>
-        ))}
-        <button className="btn btn-primary" type="submit">
-          Book selected time
-        </button>
-      </form>
+      <div className="row">
+        <div className="col">
+          <img
+            src="https://tinyurl.com/a5jrvszm"
+            alt="Property"
+            className="img-thumbnail"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        </div>
+        <form onSubmit={handleSubmit} className="col">
+          {Object.entries(availableTimes).map(([date, slots]) => (
+            <div key={date} style={{ marginBottom: '1rem' }}>
+              <h2>{date}</h2>
+              {slots.map(({ time, status, id }) => {
+                // Disable slot if status is not 'available'
+                const disabled = status !== 'available'
+                return (
+                  <label
+                    key={time}
+                    style={{ display: 'block', opacity: disabled ? 0.5 : 1 }}
+                  >
+                    <input
+                      type="radio"
+                      name="timeslot"
+                      value={id}
+                      disabled={disabled}
+                      checked={selected === id}
+                      onChange={() => setSelected(id)}
+                      className="me-2"
+                    />
+                    {time} ({status})
+                  </label>
+                )
+              })}
+            </div>
+          ))}
+          <button className="btn btn-primary" type="submit">
+            Book selected time
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

@@ -15,25 +15,40 @@ const PropertyList = ({ onShowProperty }) => {
 
   return (
     <div>
-      <h1>Properties</h1>
-      <ul>
-        {properties?.map((property) => (
-          <li key={property.id}>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1>BookMe Home</h1>
+        <Link to="/properties/new" className="btn btn-primary">
+          Add property
+        </Link>
+      </div>
+      {properties?.map((property) => (
+        <div key={property.id} class="card mb-3">
+          <img
+            src="https://tinyurl.com/a5jrvszm"
+            className="card-img-top"
+            alt="..."
+            style={{ height: '200px', objectFit: 'cover' }}
+          />
+          <div className="card-body">
+            <h5>
+              <strong>{property.name}</strong>
+            </h5>
+            <p>{property.address}</p>
             <Link
               to={`/properties/${property.id}`}
-              className="btn btn-link"
+              className="btn btn-secondary"
               style={{ textAlign: 'left', display: 'inline-block' }}
             >
-              <strong>{property.name}</strong>
-              <br />
-              {property.address}
+              See viewing times
             </Link>
-          </li>
-        ))}
-      </ul>
-      <Link to="/properties/new" className="btn btn-primary">
-        Add property
-      </Link>
+          </div>
+        </div>
+      ))}
+      <div className="d-flex justify-content-end mt-4">
+        <Link to="/properties/new" className="btn btn-primary">
+          Add property
+        </Link>
+      </div>
     </div>
   )
 }

@@ -90,8 +90,8 @@ function TimeslotForm({ errors = [] }) {
 
   return (
     <div>
-      <h1>Create new viewing time for {propertyName}</h1>
-      <p>{propertyAddress}</p>
+      <h1>New viewing time for {propertyName}</h1>
+      <p>Address: {propertyAddress}</p>
       <form onSubmit={handleSubmit}>
         <input type="hidden" name="property_id" value={id} />
 
@@ -160,7 +160,7 @@ function TimeslotForm({ errors = [] }) {
         </div>
 
         <div className="form-field">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-success">
             Create viewing time
           </button>
         </div>
