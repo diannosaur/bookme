@@ -1,6 +1,6 @@
 module Api
   class PropertiesController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:create, :show]
+    skip_before_action :verify_authenticity_token
 
 
     def index
@@ -20,6 +20,16 @@ module Api
     def show
       property = Property.includes(:timeslots).find(params[:id])
       render json: property.to_json(include: :timeslots)
+    end
+
+    def destroy
+      property = Property.find(params[:id])
+      if property.destroy
+        properties = Property.all
+        render json: properties.to_json()
+      else
+        render json: { errors: property.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     private

@@ -32,6 +32,16 @@ module Api
       end
     end
 
+    def destroy
+      timeslot = Timeslot.find(params[:id])
+      property = timeslot.property
+      if timeslot.destroy
+        render json: property.timeslots, status: :ok
+      else
+        render json: { errors: timeslot.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
     private
 
     def timeslot_params

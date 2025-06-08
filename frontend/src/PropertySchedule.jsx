@@ -1,6 +1,6 @@
 // PropertyTimeslots.jsx
 import { useState, useEffect, useCallback } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 
 function formatDate(dateStr) {
@@ -15,8 +15,6 @@ function formatDate(dateStr) {
 
 const formatTime = (time) => {
   const displayTime = new Date(time)
-  console.log('unFormatted time:', time)
-  console.log('Formatted time:', displayTime)
 
   return displayTime.toLocaleTimeString('en-NZ', {
     hour: 'numeric',
@@ -27,6 +25,7 @@ const formatTime = (time) => {
 
 function PropertySchedule({ property, onNewTimeslot }) {
   const { id } = useParams()
+  const location = useLocation()
 
   const [propertyName, setPropertyName] = useState(null)
   const [propertyAddress, setPropertyAddress] = useState(null)
@@ -36,7 +35,6 @@ function PropertySchedule({ property, onNewTimeslot }) {
     fetch(`http://localhost:3000/api/properties/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setPropertyName(data.name)
         setPropertyAddress(data.address)
         setTimes(data.timeslots)
@@ -44,18 +42,44 @@ function PropertySchedule({ property, onNewTimeslot }) {
       .catch((error) => console.error('Error fetching:', error))
   }, [id])
 
-  // Fetch property info when component mounts or id changes
+  const copyLink = () => {
+    const url = window.location.origin + location.pathname + '/book'
+    navigator.clipboard
+      .writeText(url)
+      .then(() => alert('Link copied to clipboard!'))
+      .catch(() => alert('Failed to copy link.'))
+  }
+
   useEffect(() => {
     fetchPropertyInfo()
   }, [fetchPropertyInfo])
+
+  const deleteTime = (timeslotId) => {
+    if (!window.confirm('Are you sure you want to delete this viewing time?')) {
+      return
+    }
+    fetch(`http://localhost:3000/api/timeslots/${timeslotId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setTimes((prevTimes) =>
+          prevTimes.filter((time) => time.id !== timeslotId)
+        )
+      })
+      .catch((error) => console.error('Error deleting:', error))
+  }
   return (
     <div>
-      <h1>Viewing times for {propertyName} property</h1>
+      <h1>Viewing times for {propertyName}</h1>
       <h2>Address: {propertyAddress}</h2>
       <div className="d-flex mt-4 mb-4 gap-2">
         <Link to={`/properties/${id}/timeslot`} className="btn btn-success">
           Create new viewing time
         </Link>
+        <button className="btn btn-secondary" onClick={copyLink}>
+          Copy booking link
+        </button>
         <Link to={`/properties`} className="btn btn-primary">
           View all properties
         </Link>
@@ -72,6 +96,7 @@ function PropertySchedule({ property, onNewTimeslot }) {
               <th>Start Time</th>
               <th>End Time</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -82,10 +107,21 @@ function PropertySchedule({ property, onNewTimeslot }) {
                 <td>{formatTime(timeslot.end_time)}</td>
                 <td
                   className={classNames(
-                    timeslot.status === 'available' ? 'text-bg-success' : 'text-bg-danger',
+                    timeslot.status === 'available'
+                      ? 'text-bg-success'
+                      : 'text-bg-danger'
                   )}
                 >
                   {timeslot.status}
+                </td>
+                <td>
+                  <button
+                    value={timeslot.id}
+                    className="btn btn-danger"
+                    onClick={() => deleteTime(timeslot.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

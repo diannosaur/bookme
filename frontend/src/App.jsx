@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PropertyList />} />
-        <Route path="/properties/:id/guest" element={<PropertyViewings />} />
+        <Route path="/properties/:id/book" element={<PropertyViewings />} />
         <Route path="/properties/:id/timeslot" element={<TimslotForm />} />
         <Route path="/properties/:id" element={<PropertySchedule />} />
         <Route path="/properties" element={<PropertyList />} />

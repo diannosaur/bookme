@@ -34,11 +34,11 @@ const NewProperty = ({ errors = [], onSubmit }) => {
   return (
     <>
       <h1 className="mb-4">
-        Create a new property listing to set viewing times
+        Create a new property listing
       </h1>
       <form onSubmit={handleSubmit}>
         {formErrors.length > 0 && (
-          <div id="error_explanation">
+          <div id="error_explanation" className="alert alert-danger">
             <ul>
               {formErrors.map((msg, i) => (
                 <li key={i}>{msg}</li>
