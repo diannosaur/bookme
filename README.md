@@ -21,6 +21,7 @@ Setup
 6. run `npm install`
 7. run `npm start`
 8. This should open your default browser to localhost:3001
+(properties can be added on the home page, viewing booking link can be copied from property page to share with guests/view in browser)
 
 
 To make this production ready I would:
@@ -39,3 +40,4 @@ To make this production ready I would:
 - fix linting errors
 - find a good react library for form submission which includes inline validation
 - add authenticaion mechanism
+- replace bootstrap cdn with app native css 
