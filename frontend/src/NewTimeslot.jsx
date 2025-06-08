@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toUTCISOString } from './helpers'
 
-function TimeslotForm({ errors = [] }) {
+function TimeslotForm() {
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -14,7 +14,6 @@ function TimeslotForm({ errors = [] }) {
     fetch(`http://localhost:3000/api/properties/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setPropertyName(data.name)
         setPropertyAddress(data.address)
       })
@@ -46,7 +45,6 @@ function TimeslotForm({ errors = [] }) {
       .then(async (response) => {
         if (!response.ok) {
           const error = await response.json()
-          console.log(error.errors)
           throw error.errors
         }
       })
@@ -55,7 +53,6 @@ function TimeslotForm({ errors = [] }) {
         navigate(`/properties/${id}`)
       })
       .catch((err) => {
-        console.log(err)
         setFormErrors(err || ['Failed to create timeslot.'])
       })
   }
@@ -63,7 +60,6 @@ function TimeslotForm({ errors = [] }) {
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
-    console.log('Form updated:', { ...form, [name]: value })
   }
 
   const handleSubmit = (e) => {
@@ -96,7 +92,7 @@ function TimeslotForm({ errors = [] }) {
         <input type="hidden" name="property_id" value={id} />
 
         {formErrors.length > 0 && (
-          <div id="error_explanation">
+          <div id="error_explanation" className="alert alert-danger">
             <ul>
               {formErrors.map((msg, i) => (
                 <li key={i}>{msg}</li>
@@ -145,20 +141,6 @@ function TimeslotForm({ errors = [] }) {
             onChange={handleChange}
           />
         </div>
-
-        <div className="form-field">
-          <label className="label" htmlFor="max_guests">
-            Max guests
-          </label>
-          <br />
-          <input
-            type="number"
-            name="max_guests"
-            value={form.max_guests}
-            onChange={handleChange}
-          />
-        </div>
-
         <div className="form-field">
           <button type="submit" className="btn btn-success">
             Create viewing time

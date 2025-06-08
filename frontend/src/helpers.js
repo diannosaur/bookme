@@ -37,3 +37,23 @@ export default function formatTimeslots(timeslots) {
 
   return grouped;
 }
+
+export const formatDate = (dateStr) => {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-NZ', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+export const formatTime = (time) => {
+  const displayTime = new Date(time)
+
+  return displayTime.toLocaleTimeString('en-NZ', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  })
+}

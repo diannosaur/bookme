@@ -2,26 +2,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-
-function formatDate(dateStr) {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-NZ', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
-
-const formatTime = (time) => {
-  const displayTime = new Date(time)
-
-  return displayTime.toLocaleTimeString('en-NZ', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  })
-}
+import { formatDate, formatTime } from './helpers'
 
 function PropertySchedule({ property, onNewTimeslot }) {
   const { id } = useParams()
@@ -77,12 +58,12 @@ function PropertySchedule({ property, onNewTimeslot }) {
         <Link to={`/properties/${id}/timeslot`} className="btn btn-success">
           Create new viewing time
         </Link>
+        <Link to={`/properties/${id}/book`} className="btn btn-info">
+          View bookings page
+        </Link>
         <button className="btn btn-secondary" onClick={copyLink}>
           Copy booking link
         </button>
-        <Link to={`/properties`} className="btn btn-primary">
-          View all properties
-        </Link>
       </div>
       {times?.length === 0 ? (
         <div className="alert alert-info">
@@ -128,6 +109,9 @@ function PropertySchedule({ property, onNewTimeslot }) {
           </tbody>
         </table>
       )}
+      <Link to={`/properties`} className="btn btn-primary">
+        View all properties
+      </Link>
     </div>
   )
 }
