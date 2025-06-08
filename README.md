@@ -24,6 +24,7 @@ Setup
 
 
 To make this production ready I would:
+- add tests
 - set up a proper database e.g. postgresql
 - remove `skip_before_action :verify_authenticity_token` from api controllers and establish secure protocols for data fetching between front and back end
 - use environment variables for API URLs
@@ -31,9 +32,10 @@ To make this production ready I would:
 - create a bookings model that records who the booking is made by and relates to timeslot
 - allow timeslots to be booked by more than one person
 - validate start and end time so end time cannot be the same or earlier than start time
-- swap out time selects for one that will offer selection from 15 minute intervals
+- limit time selects to 15 minute intervals
 - convert to typescript
 - audit for accessibility
 - pull fetch methods out into a context provider
 - fix linting errors
 - find a good react library for form submission which includes inline validation
+- add authenticaion mechanism
