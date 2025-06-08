@@ -7,10 +7,6 @@ module Api
       render json: @timeslots
     end
 
-    def new
-      create
-    end
-
     def create
       @property = Property.find(params[:property_id]) if params[:property_id].present?
       if @property
@@ -18,12 +14,11 @@ module Api
         if @timeslot.save
           redirect_to api_property_path(@property), notice: 'Timeslot was successfully created.'
         else
-          render :new, status: :unprocessable_entity
+        render json: { errors: @timeslot.errors.full_messages }, status: :unprocessable_entity
         end
       else
         @timeslot = Timeslot.new(timeslot_params)
         @timeslot.errors.add(:base, "Property not found")
-        render :new, status: :unprocessable_entity
       end
     end
 

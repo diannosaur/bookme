@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PropertySchedule from './PropertySchedule';
 import PropertyViewings from './PropertyViewings';
-import TimslotForm from './TimeslotForm';
+import TimslotForm from './NewTimeslot';
 import PropertyList from './PropertyList';
 import NewProperty from './NewProperty';
 

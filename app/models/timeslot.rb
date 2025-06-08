@@ -4,7 +4,9 @@ class Timeslot < ApplicationRecord
 
   validates :viewing_date, :start_time, :end_time, presence: true
 
-  def time
+  validates :start_time, uniqueness: { scope: [:viewing_date, :property_id], message: "already exists for this property on this date" }
+
+  def time_window
     "#{start_time} - #{end_time}"
   end
 

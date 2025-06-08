@@ -7,6 +7,7 @@ function TimeslotForm({ errors = [] }) {
 
   const [propertyName, setPropertyName] = useState(null)
   const [propertyAddress, setPropertyAddress] = useState(null)
+  const [formErrors, setFormErrors] = useState([]);
 
   const fetchPropertyInfo = useCallback(() => {
     fetch(`http://localhost:3000/api/properties/${id}`)
@@ -43,16 +44,18 @@ function TimeslotForm({ errors = [] }) {
     })
       .then(async (response) => {
         if (!response.ok) {
-          console.log(response)
           const error = await response.json()
-          throw new Error(error.errors.join(', '))
+          console.log(error.errors)
+          throw error.errors
         }
       })
       .then(() => {
+        setFormErrors([]);
         navigate(`/properties/${id}`)
       })
-      .catch((error) => {
-        console.error('Update failed:', error)
+      .catch((err) => {
+        console.log(err)
+        setFormErrors(err || ["Failed to create timeslot."]);
       })
   }
 
@@ -74,14 +77,10 @@ function TimeslotForm({ errors = [] }) {
       <form onSubmit={handleSubmit}>
         <input type="hidden" name="property_id" value={id} />
 
-        {errors.length > 0 && (
+        {formErrors.length > 0 && (
           <div id="error_explanation">
-            <h2>
-              {errors.length} error(s) prohibited this timeslot from being
-              saved:
-            </h2>
             <ul>
-              {errors.map((msg, i) => (
+              {formErrors.map((msg, i) => (
                 <li key={i}>{msg}</li>
               ))}
             </ul>
