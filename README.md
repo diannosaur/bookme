@@ -39,6 +39,6 @@ To make this production ready I would:
 - pull fetch methods out into a context provider
 - fix linting errors
 - find a good react library for form submission which includes inline validation
-- add authenticaion mechanism
+- add authentication mechanism
 - replace bootstrap cdn with app native css
 - use a time converter library like `luxon` to handle time conversion more robustly
