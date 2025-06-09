@@ -25,7 +25,7 @@ Setup
 
 
 To make this production ready I would:
-- add tests
+- add tests!!
 - set up a proper database e.g. postgresql
 - remove `skip_before_action :verify_authenticity_token` from api controllers and establish secure protocols for data fetching between front and back end
 - use environment variables for API URLs
@@ -40,4 +40,5 @@ To make this production ready I would:
 - fix linting errors
 - find a good react library for form submission which includes inline validation
 - add authenticaion mechanism
-- replace bootstrap cdn with app native css 
+- replace bootstrap cdn with app native css
+- use a time converter library like `luxon` to handle time conversion more robustly
